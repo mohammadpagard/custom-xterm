@@ -34,11 +34,11 @@ I made this in my free time, based on the source code of other themes. I use it 
 ### Usuages
 1. Clone the repository or just copy the `alacritty.toml` file to the `/home/[username]/.config/alacritty/` path. But consider that there's other paths you could work with, I'll mention the Alacritty suggestion then with its documentation.
 #### Paths For `alacritty.toml`
-`$XDG_CONFIG_HOME/alacritty/alacritty.toml`
-`$XDG_CONFIG_HOME/alacritty.toml`
-`$HOME/.config/alacritty/alacritty.toml`
-`$HOME/.alacritty.toml`
-`/etc/alacritty/alacritty.toml`
+- `$XDG_CONFIG_HOME/alacritty/alacritty.toml`
+- `$XDG_CONFIG_HOME/alacritty.toml`
+- `$HOME/.config/alacritty/alacritty.toml`
+- `$HOME/.alacritty.toml`
+- `/etc/alacritty/alacritty.toml`
 
 
 ### Notes
