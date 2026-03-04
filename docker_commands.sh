@@ -21,14 +21,16 @@ function ColorBlue() {
 DOCKER_ALL_CONTAINERS_ID=$(docker ps -aq);
 DOCKER_UP_CONTAINERS_ID=$(docker ps -q);
 
-function up_containers() {
+function up_containers_id() {
 	echo "";
 	echo ${DOCKER_UP_CONTAINERS_ID};
+	echo "------------";
 	echo "";
 }
-function all_containers() {
+function all_containers_id() {
 	echo "";
 	echo ${DOCKER_ALL_CONTAINERS_ID};
+	echo "------------";
 	echo "";
 }
 
@@ -38,13 +40,19 @@ function all_containers() {
 ##
 function menu() {
 	echo -ne "
-	<< Richie Docker Commands Boilerplate >>
+	$(ColorBlue '<< Richie Docker Commands Boilerplate >>')
 	$(ColorGreen '1)') Show Only UP Containers ID
 	$(ColorGreen '2)') Show All The Containers ID
 	$(ColorGreen '0)') Exit
 
-	Choose one: 
-	"
+	Choose one: "
+
+	read user_choice;
+	case ${user_choice} in
+		1) up_containers_id; menu;;
+		2) all_containers_id; menu;;
+		0) exit 0 ;;
+	esac
 }
 
 menu
