@@ -11,7 +11,7 @@ function ColorGreen() {
 	echo -ne "${green}$1${clean}";
 }
 function ColorBlue() {
-	echo -ne "${green}$1${clean}";
+	echo -ne "${blue}$1${clean}";
 }
 
 ##
@@ -31,3 +31,20 @@ function all_containers() {
 	echo ${DOCKER_ALL_CONTAINERS_ID};
 	echo "";
 }
+
+
+##
+# Main menu function area
+##
+function menu() {
+	echo -ne "
+	<< Richie Docker Commands Boilerplate >>
+	$(ColorGreen '1)') Show Only UP Containers ID
+	$(ColorGreen '2)') Show All The Containers ID
+	$(ColorGreen '0)') Exit
+
+	Choose one: 
+	"
+}
+
+menu
