@@ -35,10 +35,15 @@ function show_containers_json() {
 }
 function stop_containers() {
 	echo "";
-	stop_command=$(docker stop ${DOCKER_UP_CONTAINERS_ID});
-	echo ${stop_command};
-	echo "------------";
+	command_format=$(docker stop ${DOCKER_UP_CONTAINERS_ID});
+	echo ${command_format};
+	printf "$(ColorBlue '::')UP Containers$(ColorBlue '::') \n" ${DOCKER_UP_CONTAINERS_ID};
+}
+function remove_stopped_containers() {
 	echo "";
+	command_format=$(docker rm ${DOCKER_ALL_CONTAINERS_ID});
+	echo ${command_format};
+	printf "$(ColorBlue '::')All Containers$(ColorBlue '::') \n" ${DOCKER_ALL_CONTAINERS_ID};
 }
 
 
@@ -51,17 +56,25 @@ function menu() {
 	$(ColorGreen '1)') Show All The Containers ID
 	$(ColorGreen '2)') Show UP Containers In JSON Format
 	$(ColorGreen '3)') Stop All Containers
+	$(ColorGreen '4)') Remove All Stopped Containers
 	$(ColorGreen '0)') Exit
 
 	Choose one: "
 
 	read user_choice;
-	case ${user_choice} in
-		1) all_containers_id; menu;;
-		2) show_containers_json; menu;;
-		3) stop_containers; menu;;
-		0) exit 0 ;;
-	esac
+
+	## Check the user choice and call appropriate functions ##
+	if [[ ${user_choice} == 1 ]] then
+		all_containers_id;
+	elif [[ ${user_choice} == 2 ]] then
+		show_containers_json;
+	elif [[ ${user_choice} == 3 ]] then
+		stop_containers;
+	elif [[ ${user_choice} == 4 ]] then
+		remove_stopped_containers;
+	elif [[ ${user_choice} == 0 ]] then
+		exit 0;
+	fi
 }
 
 menu
