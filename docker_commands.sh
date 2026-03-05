@@ -33,6 +33,12 @@ function all_containers_id() {
 	echo "------------";
 	echo "";
 }
+function show_containers_json() {
+	echo "";
+	command_format=$(docker ps --format 'json');
+	printf "%s" ${command_format} | jq
+	echo "";
+}
 
 
 ##
@@ -43,6 +49,7 @@ function menu() {
 	$(ColorBlue '<< Richie Docker Commands Boilerplate >>')
 	$(ColorGreen '1)') Show Only UP Containers ID
 	$(ColorGreen '2)') Show All The Containers ID
+	$(ColorGreen '3)') Show UP Containers In JSON Format
 	$(ColorGreen '0)') Exit
 
 	Choose one: "
@@ -51,6 +58,7 @@ function menu() {
 	case ${user_choice} in
 		1) up_containers_id; menu;;
 		2) all_containers_id; menu;;
+		3) show_containers_json; menu;;
 		0) exit 0 ;;
 	esac
 }
