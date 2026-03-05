@@ -5,6 +5,7 @@
 ##
 green='\e[32m';
 blue='\e[34m';
+red='\e[31m';
 clean='\e[0m';
 
 function ColorGreen() {
@@ -12,6 +13,9 @@ function ColorGreen() {
 }
 function ColorBlue() {
 	echo -ne "${blue}$1${clean}";
+}
+function ColorRed() {
+	echo -ne "${red}$1${clean}";
 }
 
 ##
@@ -91,8 +95,8 @@ function menu() {
 	elif [[ ${user_choice} == 0 ]] then
 		exit 0;
 	else
-		echo "Number $(ColorGreen ${user_choice}) is not in the options!";
-		echo "Select the correct option!";
+		echo "$(ColorRed '**')Number $(ColorGreen ${user_choice}) is not in the options$(ColorRed '**')";
+		echo "$(ColorRed '**')Select the correct option$(ColorRed '**')";
 		exit 0;
 	fi
 }
