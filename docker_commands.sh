@@ -21,11 +21,15 @@ function ColorBlue() {
 DOCKER_ALL_CONTAINERS_ID=$(docker ps -aq);
 DOCKER_UP_CONTAINERS_ID=$(docker ps -q);
 
+function up_containers_id() {
+	echo "";
+	echo ${DOCKER_UP_CONTAINERS_ID};
+	echo "------------";
+}
 function all_containers_id() {
 	echo "";
 	echo ${DOCKER_ALL_CONTAINERS_ID};
 	echo "------------";
-	echo "";
 }
 function show_containers_json() {
 	echo "";
@@ -53,10 +57,11 @@ function remove_stopped_containers() {
 function menu() {
 	echo -ne "
 	$(ColorBlue '<< Richie Docker Commands Boilerplate >>')
-	$(ColorGreen '1)') Show All The Containers ID
-	$(ColorGreen '2)') Show UP Containers In JSON Format
-	$(ColorGreen '3)') Stop All Containers
-	$(ColorGreen '4)') Remove All Stopped Containers
+	$(ColorGreen '1)') Show UP Containers ID
+	$(ColorGreen '2)') Show All The Containers ID
+	$(ColorGreen '3)') Show UP Containers In JSON Format
+	$(ColorGreen '4)') Stop All Containers
+	$(ColorGreen '5)') Remove All Stopped Containers
 	$(ColorGreen '0)') Exit
 
 	Choose one: "
@@ -65,12 +70,14 @@ function menu() {
 
 	## Check the user choice and call appropriate functions ##
 	if [[ ${user_choice} == 1 ]] then
-		all_containers_id;
+		up_containers_id;
 	elif [[ ${user_choice} == 2 ]] then
-		show_containers_json;
+		all_containers_id;
 	elif [[ ${user_choice} == 3 ]] then
-		stop_containers;
+		show_containers_json;
 	elif [[ ${user_choice} == 4 ]] then
+		stop_containers;
+	elif [[ ${user_choice} == 5 ]] then
 		remove_stopped_containers;
 	elif [[ ${user_choice} == 0 ]] then
 		exit 0;
