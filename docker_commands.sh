@@ -47,6 +47,28 @@ function stop_containers() {
 	echo ${command_format};
 	printf "$(ColorBlue '::')UP Containers$(ColorBlue '::') \n" ${DOCKER_UP_CONTAINERS_ID};
 }
+function stop_container() {
+	## Stopping a container by its ID ##
+
+	read -p "Enter the container ID: " container;
+
+	up_containers=${DOCKER_UP_CONTAINERS_ID};
+	command_format=$(docker stop ${container});
+
+	# Traverse to reach the target container (user input)
+	for current_container in ${up_containers}
+	do
+		if [[ ${current_container} == ${container} ]] then
+			echo ${command_format};
+			echo "------------";
+			printf "Container $(ColorGreen ${container}) stopped.\n";
+			break;
+		else
+			continue;
+		fi
+	done
+}
+
 function remove_stopped_containers() {
 	echo "";
 	command_format=$(docker rm ${DOCKER_ALL_CONTAINERS_ID});
@@ -71,8 +93,9 @@ function menu() {
 	$(ColorGreen '2)') Show All The Containers ID
 	$(ColorGreen '3)') Show UP Containers In JSON Format
 	$(ColorGreen '4)') Stop All Containers
-	$(ColorGreen '5)') Remove All Stopped Containers
-	$(ColorGreen '6)') Force Remove All Containers
+	$(ColorGreen '5)') Stop Special Containers
+	$(ColorGreen '6)') Remove All Stopped Containers
+	$(ColorGreen '7)') Force Remove All Containers
 	$(ColorGreen '0)') Exit
 
 	Choose one: "
@@ -89,8 +112,10 @@ function menu() {
 	elif [[ ${user_choice} == 4 ]] then
 		stop_containers;
 	elif [[ ${user_choice} == 5 ]] then
-		remove_stopped_containers;
+		stop_container;
 	elif [[ ${user_choice} == 6 ]] then
+		remove_stopped_containers;
+	elif [[ ${user_choice} == 7 ]] then
 		force_remove_containers;
 	elif [[ ${user_choice} == 0 ]] then
 		exit 0;
