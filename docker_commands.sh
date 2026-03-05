@@ -49,6 +49,12 @@ function remove_stopped_containers() {
 	echo ${command_format};
 	printf "$(ColorBlue '::')All Containers$(ColorBlue '::') \n" ${DOCKER_ALL_CONTAINERS_ID};
 }
+function force_remove_containers() {
+	echo "";
+	command_format=$(docker rm -f ${DOCKER_ALL_CONTAINERS_ID});
+	echo ${command_format};
+	printf "$(ColorBlue '::')All Containers$(ColorBlue '::') \n" ${DOCKER_ALL_CONTAINERS_ID};
+}
 
 
 ##
@@ -62,6 +68,7 @@ function menu() {
 	$(ColorGreen '3)') Show UP Containers In JSON Format
 	$(ColorGreen '4)') Stop All Containers
 	$(ColorGreen '5)') Remove All Stopped Containers
+	$(ColorGreen '6)') Force Remove All Containers
 	$(ColorGreen '0)') Exit
 
 	Choose one: "
@@ -79,6 +86,8 @@ function menu() {
 		stop_containers;
 	elif [[ ${user_choice} == 5 ]] then
 		remove_stopped_containers;
+	elif [[ ${user_choice} == 6 ]] then
+		force_remove_containers;
 	elif [[ ${user_choice} == 0 ]] then
 		exit 0;
 	fi
