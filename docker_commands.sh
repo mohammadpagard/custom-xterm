@@ -90,6 +90,10 @@ function menu() {
 		force_remove_containers;
 	elif [[ ${user_choice} == 0 ]] then
 		exit 0;
+	else
+		echo "Number $(ColorGreen ${user_choice}) is not in the options!";
+		echo "Select the correct option!";
+		exit 0;
 	fi
 }
 
