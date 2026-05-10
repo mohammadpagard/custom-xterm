@@ -84,3 +84,21 @@ remove_container() {
         color_red "Container not found."
     fi
 }
+
+# =========================
+# Menu
+# =========================
+
+show_menu() {
+
+    echo
+    color_blue "===== Docker Helper CLI ====="
+    echo
+    echo "1) Show running containers"
+    echo "2) Show all containers"
+    echo "3) Stop container"
+    echo "4) Remove container"
+    echo "5) Show containers as JSON"
+    echo "0) Exit"
+    echo
+}
