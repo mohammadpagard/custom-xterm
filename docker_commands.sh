@@ -102,3 +102,54 @@ show_menu() {
     echo "0) Exit"
     echo
 }
+
+
+# =========================
+# Main loop
+# =========================
+
+main() {
+
+    while true; do
+
+        show_menu
+
+        read -rp "Select an option: " option
+
+        case "$option" in
+
+            1)
+                show_running_containers
+                ;;
+
+            2)
+                show_all_containers
+                ;;
+
+            3)
+                stop_container
+                ;;
+
+            4)
+                remove_container
+                ;;
+
+            5)
+                show_containers_json
+                ;;
+
+            0)
+                echo "Bye!"
+                exit 0
+                ;;
+
+            *)
+                color_red "Invalid option."
+                ;;
+
+        esac
+
+    done
+}
+
+main
