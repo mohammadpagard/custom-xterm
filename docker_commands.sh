@@ -11,9 +11,9 @@ set -o pipefail
 set -o nounset
 
 
-# -------------------------
+# =========================
 # Color helpers
-# -------------------------
+# =========================
 
 color_blue() {
     printf "\033[34m%s\033[0m" "$1"
@@ -25,4 +25,62 @@ color_red() {
 
 color_green() {
     printf "\033[32m%s\033[0m" "$1"
+}
+
+
+# =========================
+# Docker helpers
+# =========================
+
+get_running_containers() {
+    docker ps -q
+}
+
+get_all_containers() {
+    docker ps -aq
+}
+
+show_running_containers() {
+    echo
+    color_blue "Running Containers:"
+    echo
+    docker ps
+}
+
+show_all_containers() {
+    echo
+    color_blue "All Containers:"
+    echo
+    docker ps -a
+}
+
+show_containers_json() {
+    echo
+    color_blue "Containers (JSON format):"
+    echo
+    docker ps --format json | jq
+}
+
+stop_container() {
+
+    read -rp "Enter container ID or name: " container
+
+    if docker ps -q --no-trunc | grep -q "$container"; then
+        docker stop "$container"
+        color_green "Container stopped successfully."
+    else
+        color_red "Container not found among running containers."
+    fi
+}
+
+remove_container() {
+
+    read -rp "Enter container ID or name: " container
+
+    if docker ps -aq --no-trunc | grep -q "$container"; then
+        docker rm "$container"
+        color_green "Container removed successfully."
+    else
+        color_red "Container not found."
+    fi
 }
